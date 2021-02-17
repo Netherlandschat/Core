@@ -29,7 +29,7 @@ jobs:
       run: git checkout -b gh-pages
 
     - name: Remove everything from git
-      run: git rm -rf --cached *
+      run: git rm -rf --cached .github gradle src .gitignore *.gradle gradlew*
 
     - name: Set upstream branch
       run: git branch --set-upstream-to=origin/master gh-pages
