@@ -1,0 +1,69 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'maven-publish'      
+    id 'eclipse'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+version = '0.0.6'
+group = 'nl.thedutchmc'
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+allprojects {
+
+    repositories {
+       jcenter()
+       mavenCentral()
+    }
+
+    sourceCompatibility = 1.11
+    targetCompatibility = 1.11
+}
+
+dependencies {
+    compile ('net.dv8tion:JDA:4.2.0_228') {
+        exclude module: 'opus-java'
+    }
+    
+    compile group: 'org.yaml', name: 'snakeyaml', version: '1.8'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.29'
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifactId = 'netherlandsbot-core'
+			from components.java
+			
+			pom {
+				name = 'NetherlandsBot Core'
+				description = 'NetherlandsBot Core Application'
+				url = 'https://thedutchmc.nl'
+				
+				developers {
+					developer {
+						id = 'thedutchmc'
+						name = 'Tobias de Bruijn'
+						email = 't.debruijn@thedutchmc.nl'
+					}	
+				}
+			}	
+		}
+	}
+}
+
+application {
+    mainClassName = 'nl.thedutchmc.netherlandsbot.Bot'
+}
