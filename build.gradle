@@ -1,8 +1,11 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     id 'java'
     id 'application'
     id 'maven-publish'      
     id 'eclipse'
+    id 'com.github.johnrengelman.shadow' version '5.0.0'    
 }
 
 sourceSets {
@@ -39,6 +42,19 @@ dependencies {
     
     compile group: 'org.yaml', name: 'snakeyaml', version: '1.8'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.29'
+}
+
+//This task is for GitHub Actions only
+task ghActions(type: ShadowJar) {	
+	description 'GitHub Actions Task. Do not use in regular development!'
+	version = ''
+	archiveClassifier = ''
+	archiveBaseName = 'output'
+	
+	from sourceSets.main.output
+	configurations = [project.configurations.runtime]
+	
+	destinationDirectory = file("$rootDir/actions")
 }
 
 publishing {
