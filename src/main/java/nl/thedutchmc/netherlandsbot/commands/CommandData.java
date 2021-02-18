@@ -9,14 +9,16 @@ public class CommandData {
 
 	private String command;
 	private String[] arguments;
+	private String[] argumentsRaw;
 	private Member member;
 	private TextChannel channel;
 	private Guild guild;
 	private Message message;
 	
-	public CommandData(String command, String[] arguments, Member member, TextChannel channel, Guild guild, Message message) {
+	public CommandData(String command, String[] arguments, String[] argumentsRaw, Member member, TextChannel channel, Guild guild, Message message) {
 		this.command = command;
 		this.arguments = arguments;
+		this.argumentsRaw = argumentsRaw;
 		this.member = member;
 		this.channel = channel;
 		this.guild = guild;
@@ -63,5 +65,12 @@ public class CommandData {
 	 */
 	public String[] getArguments() {
 		return arguments;
+	}
+
+	/**
+	 * @return the argumentsRaw
+	 */
+	public String[] getArgumentsRaw() {
+		return argumentsRaw;
 	}
 }

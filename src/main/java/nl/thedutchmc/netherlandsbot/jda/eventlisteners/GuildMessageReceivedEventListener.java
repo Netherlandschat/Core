@@ -29,7 +29,9 @@ public class GuildMessageReceivedEventListener extends ListenerAdapter {
 		}
 		
 		final String[] arguments = Arrays.copyOfRange(parts, 1, parts.length);
-		final CommandData commandData = new CommandData(commandName, arguments, event.getMember(), event.getChannel(), event.getGuild(), event.getMessage());
+		final String[] argumentsRaw = Arrays.copyOfRange(event.getMessage().getContentRaw().split(" "), 1, parts.length);
+		
+		final CommandData commandData = new CommandData(commandName, arguments, argumentsRaw, event.getMember(), event.getChannel(), event.getGuild(), event.getMessage());
 		
 		this.commandRegistry.fireCommand(commandData);
 	}
