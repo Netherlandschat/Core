@@ -16,7 +16,7 @@ sourceSets {
     }
 }
 
-version = '0.0.7'
+version = '0.0.8'
 group = 'nl.thedutchmc'
 
 java {
@@ -42,13 +42,6 @@ dependencies {
     
     compile group: 'org.yaml', name: 'snakeyaml', version: '1.8'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.29'
-}
-
-dependencies {
-    implementation 'com.github.Netherlandschat:Core:0.0.6'
-    compile ('net.dv8tion:JDA:4.2.0_228') {
-        exclude module: 'opus-java'
-    }
 }
 
 //This task is for GitHub Actions only
