@@ -4,6 +4,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import net.dv8tion.jda.api.entities.Activity.ActivityType;
+import nl.thedutchmc.netherlandsbot.commands.CommandRegistry;
+import nl.thedutchmc.netherlandsbot.commands.executors.ModulesCommandExecutor;
 import nl.thedutchmc.netherlandsbot.config.ConfigHandler;
 import nl.thedutchmc.netherlandsbot.jda.JdaHandler;
 import nl.thedutchmc.netherlandsbot.modules.ModuleHandler;
@@ -16,6 +18,7 @@ public class Bot {
 	private ConfigHandler configHandler;
 	private ModuleHandler moduleHandler;
 	private JdaHandler jdaHandler;
+	private CommandRegistry commandRegistry;
 	
 	public static void main(String[] args) {		
 		Bot bot = new Bot();
@@ -32,9 +35,13 @@ public class Bot {
 		this.configHandler = new ConfigHandler();
 		this.configHandler.read();
 		
+		//Register core commands
+		this.commandRegistry = new CommandRegistry();
+		this.commandRegistry.registerCommandListener("$modules", new ModulesCommandExecutor(this));
+		
 		//Prepare JDA
 		Bot.logInfo("Preparing JDA");
-		this.jdaHandler = new JdaHandler();
+		this.jdaHandler = new JdaHandler(this);
 
 		//Load modules
 		Bot.logInfo("Loading BotModules");
@@ -68,6 +75,14 @@ public class Bot {
 	 */
 	public JdaHandler getJdaHandler() {
 		return this.jdaHandler;
+	}
+	
+	/**
+	 * Get the CommandRegistry
+	 * @return Returns an instance of CommandRegistry
+	 */
+	public CommandRegistry getCommandRegistry() {
+		return this.commandRegistry;
 	}
 	
 	/**

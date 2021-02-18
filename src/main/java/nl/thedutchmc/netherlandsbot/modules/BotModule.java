@@ -3,14 +3,27 @@ package nl.thedutchmc.netherlandsbot.modules;
 import net.dv8tion.jda.api.JDA;
 import nl.thedutchmc.netherlandsbot.Bot;
 import nl.thedutchmc.netherlandsbot.annotations.NotNull;
+import nl.thedutchmc.netherlandsbot.commands.CommandRegistry;
+import nl.thedutchmc.netherlandsbot.commands.ModuleCommandListener;
 import nl.thedutchmc.netherlandsbot.jda.JdaHandler;
 import nl.thedutchmc.netherlandsbot.modules.io.ModuleFileHandler;
 
 public abstract class BotModule {
 	
+	//These fields are set using Reflection when the BotModule is loaded
 	private BotModuleMetaInformation botModuleMetaInformation;
 	private ModuleFileHandler moduleFileHandler;
 	private JdaHandler jdaHandler;
+	private CommandRegistry commandRegistry;
+	
+	/**
+	 * Register a ModuleCommandListener
+	 * @param command The name of the command, including prefix. E.g <pre>$funcommand</pre>
+	 * @param listener An instance of a ModuleCommandListener
+	 */
+	public void registerCommandListener(String command, ModuleCommandListener listener) {
+		this.commandRegistry.registerModuleCommandListener(command, listener, this.botModuleMetaInformation);
+	}
 	
 	/**
 	 * Get the module's meta information

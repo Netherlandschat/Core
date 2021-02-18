@@ -12,11 +12,18 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import nl.thedutchmc.netherlandsbot.Bot;
 import nl.thedutchmc.netherlandsbot.ShutdownThread;
 import nl.thedutchmc.netherlandsbot.annotations.Nullable;
+import nl.thedutchmc.netherlandsbot.jda.eventlisteners.GuildMessageReceivedEventListener;
 
 public class JdaHandler {
 
+	private Bot bot;
+	
 	private JDA jda;
 	private GatewayIntent[] intentsToEnable;
+	
+	public JdaHandler(Bot bot) {
+		this.bot = bot;
+	}
 	
 	/**
 	 * Load JDA
@@ -33,6 +40,9 @@ public class JdaHandler {
 		
 		//Intents
 		builder.enableIntents(Arrays.asList(intentsToEnable));
+		
+		//Register default event listeners
+		builder.addEventListeners(new GuildMessageReceivedEventListener(this.bot.getCommandRegistry()));
 
 		String gatewayIntentsStr = "";
 		for(GatewayIntent intent : this.intentsToEnable) {

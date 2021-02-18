@@ -175,6 +175,27 @@ public class ModuleHandler {
 					//Remove access
 					jdaHandlerField.setAccessible(false);
 					
+					//Get the 'commandRegistry' field
+					Field commandRegistryField = null;
+					try {
+						commandRegistryField = botModule.getClass().getSuperclass().getDeclaredField("commandRegistry");
+					} catch (NoSuchFieldException | SecurityException e) {
+						e.printStackTrace();
+					}
+					
+					//Allow access
+					commandRegistryField.setAccessible(true);
+					
+					//Set the value of the field
+					try {
+						commandRegistryField.set(botModule, this.bot.getCommandRegistry());
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					
+					//Remove access
+					commandRegistryField.setAccessible(false);
+					
 					//Lastly, add the BotModule to the list of botmodules
 					this.botModules.add(botModule);
 					
