@@ -17,7 +17,11 @@ public class ConfigHandler {
 	private File jarDirectory;
 	
 	public ConfigHandler() {
-		this.jarDirectory = FileUtils.getJarDirectory();
+		if(FileUtils.isDocker()) {
+			this.jarDirectory = new File("/config");
+		} else {
+			this.jarDirectory = FileUtils.getJarDirectory();
+		}
 	}
 	
 	/**

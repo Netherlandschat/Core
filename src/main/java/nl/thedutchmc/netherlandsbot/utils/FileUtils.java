@@ -39,6 +39,15 @@ public class FileUtils {
 		}
 	}
 	
+	public static boolean isDocker() {
+		final String IS_DOCKER = System.getenv("DOCKER");
+		if(IS_DOCKER != null && IS_DOCKER.equals("YES")) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * Get the directory the core bot JAR is in
 	 * @return Returns a File. Null if an exception occured

@@ -42,7 +42,12 @@ public class ModuleHandler {
 	 */
 	public void loadModules() {
 		//Check if a modules directory exists
-		File moduleDirectory = new File(FileUtils.getJarDirectory() + File.separator + "modules");
+		File moduleDirectory;
+		if(FileUtils.isDocker()) {
+			moduleDirectory = new File("/modules");
+		} else {
+			moduleDirectory = new File(FileUtils.getJarDirectory() + File.separator + "modules");
+		}
 		
 		if(!moduleDirectory.exists()) {
 			moduleDirectory.mkdirs();

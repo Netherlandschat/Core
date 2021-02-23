@@ -25,12 +25,19 @@ public class ModuleFileHandler {
 		this.meta = meta;
 		this.moduleHandler = moduleHandler;
 	
-		File moduleConfigDir = new File(FileUtils.getJarDirectory() + File.separator + "configs");
+		File moduleConfigDir, moduleStorageDir;
+		if(FileUtils.isDocker()) {
+			moduleConfigDir = new File("/moduleconfig");
+			moduleStorageDir = new File("/modulestorage");
+		} else {
+			moduleConfigDir = new File(FileUtils.getJarDirectory() + File.separator + "configs");
+			moduleStorageDir = new File(FileUtils.getJarDirectory() + File.separator + "storages");
+		}
+		
 		if(!moduleConfigDir.exists()) {
 			moduleConfigDir.mkdirs();
 		}
 		
-		File moduleStorageDir = new File(FileUtils.getJarDirectory() + File.separator + "storages");
 		if(!moduleStorageDir.exists()) {
 			moduleStorageDir.mkdirs();
 		}
@@ -95,7 +102,11 @@ public class ModuleFileHandler {
 	 */
 	@NotNull
 	public File getConfigFile() {
-		return new File(FileUtils.getJarDirectory() + File.separator + "configs", this.meta.getName() + ".yml");
+		if(FileUtils.isDocker()) {
+			return new File("/modulestorage");
+		} else {
+			return new File(FileUtils.getJarDirectory() + File.separator + "configs", this.meta.getName() + ".yml");
+		}
 	}
 	
 	/**
@@ -104,6 +115,10 @@ public class ModuleFileHandler {
 	 */
 	@NotNull
 	public File getStorageFile() {
-		return new File(FileUtils.getJarDirectory() + File.separator + "storages", this.meta.getName() + ".yml");
+		if(FileUtils.isDocker()) {
+			return new File("/modulestorage");
+		} else {
+			return new File(FileUtils.getJarDirectory() + File.separator + "storages", this.meta.getName() + ".yml");
+		}
 	}
 }
