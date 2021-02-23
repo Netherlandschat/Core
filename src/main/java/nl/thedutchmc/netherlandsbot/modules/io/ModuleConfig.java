@@ -30,7 +30,11 @@ public class ModuleConfig {
 	 */
 	@SuppressWarnings("unchecked")
 	public void read() {
-		this.configFile = new File(FileUtils.getJarDirectory() + File.separator + "configs", meta.getName() + ".yml");
+		if(FileUtils.isDocker()) {
+			this.configFile = new File("/modulestorage");
+		} else {
+			this.configFile = new File(FileUtils.getJarDirectory() + File.separator + "storages", this.meta.getName() + ".yml");
+		}
 		
 		if(!configFile.exists()) {
 			return;
