@@ -50,7 +50,7 @@ public class ModuleFileHandler {
 	@NotNull
 	public ModuleConfig getModuleConfig() {
 		if(this.config == null) {
-			this.config = new ModuleConfig(this.meta);
+			this.config = new ModuleConfig(this);
 		}
 		
 		this.config.read();

@@ -1,6 +1,5 @@
 package nl.thedutchmc.netherlandsbot.modules.io;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,39 +9,26 @@ import java.util.HashMap;
 import org.yaml.snakeyaml.Yaml;
 
 import nl.thedutchmc.netherlandsbot.annotations.Nullable;
-import nl.thedutchmc.netherlandsbot.modules.BotModuleMetaInformation;
-import nl.thedutchmc.netherlandsbot.utils.FileUtils;
 import nl.thedutchmc.netherlandsbot.utils.Validate;
 
 public class ModuleConfig {
 
-	private BotModuleMetaInformation meta;
+	private ModuleFileHandler moduleFileHandler;
 	
 	private HashMap<String, Object> config = new HashMap<>();
-	private File configFile = null;
 	
-	public ModuleConfig(BotModuleMetaInformation meta) {
-		this.meta = meta;
+	public ModuleConfig(ModuleFileHandler moduleFileHandler) {
+		this.moduleFileHandler = moduleFileHandler;
 	}
 	
 	/**
 	 * Read the configuration file for the module
 	 */
 	@SuppressWarnings("unchecked")
-	public void read() {
-		if(FileUtils.isDocker()) {
-			this.configFile = new File("/moduleconfig", this.meta.getName() + ".yml");
-		} else {
-			this.configFile = new File(FileUtils.getJarDirectory() + File.separator + "storages", this.meta.getName() + ".yml");
-		}
-		
-		if(!this.configFile.exists()) {
-			return;
-		}
-		
+	public void read() {		
 		FileInputStream fis = null;
 		try {
-			fis = new FileInputStream(configFile);
+			fis = new FileInputStream(this.moduleFileHandler.getConfigFile());
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -59,7 +45,7 @@ public class ModuleConfig {
 			
 		FileWriter writer = null;
 		try {
-			writer = new FileWriter(this.configFile.getAbsolutePath());
+			writer = new FileWriter(this.moduleFileHandler.getConfigFile().getAbsolutePath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
