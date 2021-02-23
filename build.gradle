@@ -57,6 +57,17 @@ task ghActions(type: ShadowJar) {
 	destinationDirectory = file("$rootDir/actions")
 }
 
+task dockerBuild(type: ShadowJar) {
+	description 'Task used for Docker builds'
+	version = ''
+	archiveClassifier = ''
+	archiveBaseName = 'Core-Docker'
+	
+	from sourceSets.main.output
+	configurations = [project.configurations.runtime]	
+}
+
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
