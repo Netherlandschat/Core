@@ -1,0 +1,11 @@
+nl.thedutchmc.netherlandsbot
+nl.thedutchmc.netherlandsbot.annotations
+nl.thedutchmc.netherlandsbot.commands
+nl.thedutchmc.netherlandsbot.commands.executors
+nl.thedutchmc.netherlandsbot.config
+nl.thedutchmc.netherlandsbot.jda
+nl.thedutchmc.netherlandsbot.jda.eventlisteners
+nl.thedutchmc.netherlandsbot.modules
+nl.thedutchmc.netherlandsbot.modules.io
+nl.thedutchmc.netherlandsbot.types
+nl.thedutchmc.netherlandsbot.utils
