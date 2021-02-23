@@ -31,7 +31,7 @@ public class ModuleConfig {
 	@SuppressWarnings("unchecked")
 	public void read() {
 		if(FileUtils.isDocker()) {
-			this.configFile = new File("/modulestorage");
+			this.configFile = new File("/modulestorage", this.meta.getName() + ".yml");
 		} else {
 			this.configFile = new File(FileUtils.getJarDirectory() + File.separator + "storages", this.meta.getName() + ".yml");
 		}
