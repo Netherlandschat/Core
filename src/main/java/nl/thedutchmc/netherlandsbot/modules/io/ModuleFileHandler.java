@@ -103,7 +103,7 @@ public class ModuleFileHandler {
 	@NotNull
 	public File getConfigFile() {
 		if(FileUtils.isDocker()) {
-			return new File("/modulestorage");
+			return new File("/moduleconfig", this.meta.getName() + ".yml");
 		} else {
 			return new File(FileUtils.getJarDirectory() + File.separator + "configs", this.meta.getName() + ".yml");
 		}
@@ -116,7 +116,7 @@ public class ModuleFileHandler {
 	@NotNull
 	public File getStorageFile() {
 		if(FileUtils.isDocker()) {
-			return new File("/modulestorage");
+			return new File("/modulestorage", this.meta.getName() + ".yml");
 		} else {
 			return new File(FileUtils.getJarDirectory() + File.separator + "storages", this.meta.getName() + ".yml");
 		}

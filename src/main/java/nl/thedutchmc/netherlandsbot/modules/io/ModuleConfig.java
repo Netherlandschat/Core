@@ -36,7 +36,7 @@ public class ModuleConfig {
 			this.configFile = new File(FileUtils.getJarDirectory() + File.separator + "storages", this.meta.getName() + ".yml");
 		}
 		
-		if(!configFile.exists()) {
+		if(!this.configFile.exists()) {
 			return;
 		}
 		
